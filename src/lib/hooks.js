@@ -43,7 +43,6 @@ export const useAuth = () => {
     const navigate = useNavigate();
 
     if(authEmail === '') navigate('/');
-    else navigate('/home');
     
     return { authName, authEmail, updateAuth };
 }
