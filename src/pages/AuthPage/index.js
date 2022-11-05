@@ -5,14 +5,17 @@ import VandyIcon from '../../assets/icons/vandy.svg';
 import { useEffect } from 'react';
 import jwt_decode from 'jwt-decode';
 import { useAuth } from '../../lib/hooks';
+import { useNavigate } from 'react-router-dom';
 const cx = classNames.bind(styles);
 
 // the authentication page
 export const AuthPage = () => {
     const { updateAuth } = useAuth();
+    const navigate = useNavigate();
     const handleLogInResponse = (response) => {
         const { name = "", email = "" } = jwt_decode(response.credential);
         updateAuth({ name, email });
+        navigate('/home');
     }
     
     useEffect(() => {

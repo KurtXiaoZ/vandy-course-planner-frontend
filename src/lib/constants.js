@@ -6,4 +6,6 @@ export const SCREEN = {
 
 export const TEXT = {
     AUTH_PAGE_TITLE: 'Course Planner',
+    LAST_VERSION: 'Last Version',
+    EXIT: 'Exit'
 }
