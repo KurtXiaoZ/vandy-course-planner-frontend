@@ -5,19 +5,32 @@ import { SCREEN, TEXT } from '../../lib/constants';
 import { TopNavButton } from '../../components/TopNavButton';
 import VersionIcon from '../../assets/icons/version.svg';
 import ExitIcon from '../../assets/icons/exit.svg';
+import RightArrowIcon from '../../assets/icons/rightArrow.svg';
+import { useRef, useState } from 'react';
 const cx = classNames.bind(styles);
 
 // the Home page where users manage their courses
 export const Home = () => {
     const { authName, updateAuth } = useAuth();
     const { type, width } = useWindowSize();
-    const isSmallScreen = type === SCREEN.MOBILE || width < 500;
+    const smallScreenTopNav = type === SCREEN.MOBILE || width < 500;
+    const smallScreenCourseLists = type === SCREEN.MOBILE || width < 700;
+    // 0 --> right, 1 --> left
+    const [arrowDir, setArrowDir] = useState(0);
+
+    const courseLists = useRef();
+
+    const shiftCourseLists = () => {
+        if(arrowDir === 0) courseLists.current.style.transform = `translateX(${40 - width}px)`;
+        else courseLists.current.style.transform = `translateX(0)`;
+        setArrowDir((arrowDir + 1) % 2);
+    }
 
     return <div className={cx(styles.wrapper)} data-testid='home-wrapper'>
         <div className={cx(styles.topNav)} data-testid='home-topnav'>
             <span 
                 className={cx(styles.topNavText, {
-                    [styles.smallScreen]: isSmallScreen
+                    [styles.smallScreen]: smallScreenTopNav
                 })}
                 data-testid='home-topnav-text'
             >
@@ -35,8 +48,41 @@ export const Home = () => {
                 onClick={() => updateAuth({})}
             />
         </div>
-        <div className={cx(styles.courseLists)} data-testid='home-courseLists'>
-
+        <div 
+            className={cx(styles.courseLists , {
+                [styles.smallScreen]: smallScreenCourseLists
+            })}
+            data-testid='home-courseLists'
+            ref={courseLists}
+        >
+            <div 
+                className={cx(styles.courseList, {
+                    [styles.smallScreen]: smallScreenCourseLists
+                })}
+                style={{ width: smallScreenCourseLists ? `${width - 65}px` : undefined }}
+                data-testid='left-courseList'
+            >
+            </div>
+            {smallScreenCourseLists && <div
+                className={cx(styles.listShifter)}
+                data-testid='list-shifter'
+            >
+                <img 
+                    src={RightArrowIcon} 
+                    style={{transform: arrowDir === 0 ? 'rotate(0deg)' : 'rotate(180deg)'}}
+                    className={cx(styles.arrow)}
+                    onClick={shiftCourseLists}
+                    data-testid='list-shifter-arrow'
+                />
+            </div>}
+            <div 
+                className={cx(styles.courseList, {
+                    [styles.smallScreen]: smallScreenCourseLists
+                })}
+                style={{ width: smallScreenCourseLists ? `${width - 65}px` : undefined }}
+                data-testid='right-courseList'
+            >
+            </div>
         </div>
     </div>
 }
