@@ -63,41 +63,6 @@ export const Home = () => {
                 style={{ width: smallScreenCourseLists ? `${width - 65}px` : undefined }}
                 data-testid='left-courseList'
             >
-                <ExpandableBlock 
-                    title='CS 1000 Level Courses'
-                >
-                    <div className={cx(styles.testBlock)}>1212</div>
-                    <div className={cx(styles.testBlock)}>3423r3</div>
-                    <div className={cx(styles.testBlock)}>ijawof</div>
-                    <div className={cx(styles.testBlock)}>1212</div>
-                    <div className={cx(styles.testBlock)}>3423r3</div>
-                    <div className={cx(styles.testBlock)}>ijawof</div>
-                    <div className={cx(styles.testBlock)}>1212</div>
-                    <div className={cx(styles.testBlock)}>3423r3</div>
-                    <div className={cx(styles.testBlock)}>ijawof</div>
-                    <div className={cx(styles.testBlock)}>1212</div>
-                    <div className={cx(styles.testBlock)}>3423r3</div>
-                    <div className={cx(styles.testBlock)}>ijawof</div>
-                    <div className={cx(styles.testBlock)}>1212</div>
-                    <div className={cx(styles.testBlock)}>3423r3</div>
-                    <div className={cx(styles.testBlock)}>ijawof</div>
-                    <div className={cx(styles.testBlock)}>1212</div>
-                    <div className={cx(styles.testBlock)}>3423r3</div>
-                    <div className={cx(styles.testBlock)}>ijawof</div>
-                    <div className={cx(styles.testBlock)}>1212</div>
-                    <div className={cx(styles.testBlock)}>3423r3</div>
-                    <div className={cx(styles.testBlock)}>ijawof</div>
-                    <div className={cx(styles.testBlock)}>1212</div>
-                    <div className={cx(styles.testBlock)}>3423r3</div>
-                    <div className={cx(styles.testBlock)}>ijawof</div>
-                </ExpandableBlock>
-                <ExpandableBlock 
-                    title='CS 2000 Level Courses'
-                >
-                    <div className={cx(styles.testBlock)}>1212</div>
-                    <div className={cx(styles.testBlock)}>3423r3</div>
-                    <div className={cx(styles.testBlock)}>ijawof</div>
-                </ExpandableBlock>
             </div>
             {smallScreenCourseLists && <div
                 className={cx(styles.listShifter)}

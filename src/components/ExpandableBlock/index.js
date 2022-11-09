@@ -19,24 +19,22 @@ export const ExpandableBlock = (props) => {
     }
 
     return <div 
-        className={cx(styles.block)}
+        className={cx(styles.block, className)}
         onClick={onClick}
+        data-testid='exandable-block'
     >
-        <div className={cx(styles.header, {
-            [styles.expand]: expand
-        })}>
-            <span className={cx(styles.title)}>
+        <div className={cx(styles.header, {[styles.expand]: expand})} data-testid='exandable-block-header'>
+            <span className={cx(styles.title)} data-testid='exandable-block-title'>
                 {title}
             </span>
             <img 
                 src={RightArrowIcon}
                 className={cx(styles.arrow)}
                 style={{transform: `rotate(${expand ? '90deg' : '180deg'})`}}
+                data-testid='exandable-block-icon'
             />
         </div>
-        <div className={cx(styles.content, {
-            [styles.expand]: expand
-        })}>
+        <div className={cx(styles.content, {[styles.expand]: expand})} data-testid='exandable-block-content'>
             {children}
         </div>
     </div>
