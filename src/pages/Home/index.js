@@ -7,6 +7,7 @@ import VersionIcon from '../../assets/icons/version.svg';
 import ExitIcon from '../../assets/icons/exit.svg';
 import RightArrowIcon from '../../assets/icons/rightArrow.svg';
 import { useRef, useState } from 'react';
+import { ExpandableBlock } from '../../components/ExpandableBlock';
 const cx = classNames.bind(styles);
 
 // the Home page where users manage their courses
@@ -62,6 +63,41 @@ export const Home = () => {
                 style={{ width: smallScreenCourseLists ? `${width - 65}px` : undefined }}
                 data-testid='left-courseList'
             >
+                <ExpandableBlock 
+                    title='CS 1000 Level Courses'
+                >
+                    <div className={cx(styles.testBlock)}>1212</div>
+                    <div className={cx(styles.testBlock)}>3423r3</div>
+                    <div className={cx(styles.testBlock)}>ijawof</div>
+                    <div className={cx(styles.testBlock)}>1212</div>
+                    <div className={cx(styles.testBlock)}>3423r3</div>
+                    <div className={cx(styles.testBlock)}>ijawof</div>
+                    <div className={cx(styles.testBlock)}>1212</div>
+                    <div className={cx(styles.testBlock)}>3423r3</div>
+                    <div className={cx(styles.testBlock)}>ijawof</div>
+                    <div className={cx(styles.testBlock)}>1212</div>
+                    <div className={cx(styles.testBlock)}>3423r3</div>
+                    <div className={cx(styles.testBlock)}>ijawof</div>
+                    <div className={cx(styles.testBlock)}>1212</div>
+                    <div className={cx(styles.testBlock)}>3423r3</div>
+                    <div className={cx(styles.testBlock)}>ijawof</div>
+                    <div className={cx(styles.testBlock)}>1212</div>
+                    <div className={cx(styles.testBlock)}>3423r3</div>
+                    <div className={cx(styles.testBlock)}>ijawof</div>
+                    <div className={cx(styles.testBlock)}>1212</div>
+                    <div className={cx(styles.testBlock)}>3423r3</div>
+                    <div className={cx(styles.testBlock)}>ijawof</div>
+                    <div className={cx(styles.testBlock)}>1212</div>
+                    <div className={cx(styles.testBlock)}>3423r3</div>
+                    <div className={cx(styles.testBlock)}>ijawof</div>
+                </ExpandableBlock>
+                <ExpandableBlock 
+                    title='CS 2000 Level Courses'
+                >
+                    <div className={cx(styles.testBlock)}>1212</div>
+                    <div className={cx(styles.testBlock)}>3423r3</div>
+                    <div className={cx(styles.testBlock)}>ijawof</div>
+                </ExpandableBlock>
             </div>
             {smallScreenCourseLists && <div
                 className={cx(styles.listShifter)}
