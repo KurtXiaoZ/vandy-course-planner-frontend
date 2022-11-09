@@ -41,5 +41,7 @@ export const ExpandableBlock = (props) => {
 };
 
 ExpandableBlock.propTypes = {
-    
+    className: PropTypes.string,
+    title: PropTypes.string,
+    children: PropTypes.object
 }
