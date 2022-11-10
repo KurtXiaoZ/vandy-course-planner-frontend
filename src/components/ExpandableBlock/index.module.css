@@ -1,0 +1,49 @@
+@value font from '../../index.module.css';
+
+.block {
+    composes: font;
+    width: 100%;
+    border-radius: 10px;
+    margin-bottom: 10px;
+}
+
+.header {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    height: 44px;
+    background-color: rgba(250, 214, 137, 0.66);
+    border-radius: 10px;
+    padding: 0 15px;
+    box-sizing: border-box;
+    cursor: pointer;
+}
+
+.header.expand {
+    border-radius: 10px 10px 0 0;
+}
+
+.title {
+    font-weight: 600;
+}
+
+.arrow {
+    width: 17px;
+    height: 17px;
+    transform: rotate(180deg);
+    margin-left: auto;
+    transition: 0.5s linear all;
+}
+
+.content {
+    max-height: 0;
+    transition: max-height 0.6s ease-out;
+    overflow: hidden;
+    background-color: #E8E8E8;
+    border-radius: 0 0 10px 10px;
+}
+
+.content.expand {
+    max-height: 2000px;
+    transition: max-height 1s ease-in;
+}

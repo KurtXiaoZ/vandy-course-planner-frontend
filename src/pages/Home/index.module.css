@@ -55,12 +55,15 @@
 }
 
 .courseList {
+    overflow-y: auto;
     flex-grow: 1;
     height: 100%;
     background-color: #D4D4D4;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
     border-radius: 10px;
     max-width: 540px;
+    padding: 10px;
+    box-sizing: border-box;
 }
 
 .courseList.smallScreen {
@@ -82,4 +85,11 @@
     width: 10px;
     cursor: pointer;
     transition: 1s linear all;
+}
+
+.testBlock {
+    height: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }

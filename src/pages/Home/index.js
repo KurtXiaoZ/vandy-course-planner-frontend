@@ -7,6 +7,7 @@ import VersionIcon from '../../assets/icons/version.svg';
 import ExitIcon from '../../assets/icons/exit.svg';
 import RightArrowIcon from '../../assets/icons/rightArrow.svg';
 import { useRef, useState } from 'react';
+import { ExpandableBlock } from '../../components/ExpandableBlock';
 const cx = classNames.bind(styles);
 
 // the Home page where users manage their courses
