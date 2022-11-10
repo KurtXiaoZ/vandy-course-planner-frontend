@@ -9,14 +9,14 @@ import { AuthContext } from "./contexts";
  */
 export const useWindowSize = () => {
     const [windowSize, setWindowSize] = useState({
-        width: window?.innerWidth ?? 1200,
-        height: window?.innerHeight ?? 800,
+        width: Math.min(window?.innerWidth || 0, window?.screen?.width || 0),
+        height: Math.min(window?.innerHeight || 0, window?.screen?.height || 0)
     });
 
     const onWindowResize = () => {
         setWindowSize({
-            width: window.innerWidth,
-            height: window.innerHeight,
+            width:Math.min(window?.innerWidth || 0, window?.screen?.width || 0),
+            height: Math.min(window?.innerHeight || 0, window?.screen?.height || 0)
         });
     }
 
