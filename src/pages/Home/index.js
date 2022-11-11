@@ -1,13 +1,15 @@
 import styles from './index.module.css';
 import classNames from 'classnames/bind';
 import { useAuth, useWindowSize } from '../../lib/hooks';
-import { SCREEN, TEXT } from '../../lib/constants';
+import { COURSE_STATUS, SCREEN, TEST_CLASS_INFO, TEST_COMPUTER_SCIENCE_CORE, TEXT } from '../../lib/constants';
 import { TopNavButton } from '../../components/TopNavButton';
 import VersionIcon from '../../assets/icons/version.svg';
 import ExitIcon from '../../assets/icons/exit.svg';
 import RightArrowIcon from '../../assets/icons/rightArrow.svg';
 import { useRef, useState } from 'react';
 import { ExpandableBlock } from '../../components/ExpandableBlock';
+import { Class } from '../../components/Class';
+import { MajorRequirement } from '../../components/MajorRequirement';
 const cx = classNames.bind(styles);
 
 // the Home page where users manage their courses
@@ -20,6 +22,9 @@ export const Home = () => {
     const [arrowDir, setArrowDir] = useState(0);
 
     const courseLists = useRef();
+    const leftList = useRef();
+    const rightList = useRef();
+    const listShifter = useRef();
 
     const shiftCourseLists = () => {
         if(arrowDir === 0) courseLists.current.style.transform = `translateX(${40 - width}px)`;
@@ -61,11 +66,25 @@ export const Home = () => {
                     [styles.smallScreen]: smallScreenCourseLists
                 })}
                 style={{ width: smallScreenCourseLists ? `${width - 65}px` : undefined }}
+                ref={leftList}
                 data-testid='left-courseList'
             >
+                <ExpandableBlock title='CS 1000 Level Course'>
+                    <Class 
+                        classInfo={TEST_CLASS_INFO}
+                        status={COURSE_STATUS.SELECTED}
+                        ref={smallScreenCourseLists ? listShifter : rightList}
+                    />
+                    <Class 
+                        classInfo={TEST_CLASS_INFO}
+                        status={COURSE_STATUS.SELECTED}
+                        ref={smallScreenCourseLists ? listShifter : rightList}
+                    />
+                </ExpandableBlock>
             </div>
             {smallScreenCourseLists && <div
                 className={cx(styles.listShifter)}
+                ref={listShifter}
                 data-testid='list-shifter'
             >
                 <img 
@@ -81,8 +100,13 @@ export const Home = () => {
                     [styles.smallScreen]: smallScreenCourseLists
                 })}
                 style={{ width: smallScreenCourseLists ? `${width - 65}px` : undefined }}
+                ref={rightList}
                 data-testid='right-courseList'
             >
+                <MajorRequirement 
+                    {...TEST_COMPUTER_SCIENCE_CORE}
+                    ref={smallScreenCourseLists ? listShifter : leftList}
+                />
             </div>
         </div>
     </div>
