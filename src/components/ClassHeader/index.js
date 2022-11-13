@@ -1,15 +1,13 @@
 import styles from './index.module.css';
 import classNames from 'classnames/bind';
 import React, { useRef, useState } from 'react';
-import { COURSE_STATUS, TEXT } from '../../lib/constants.js';
-import { getIcon, parsePrereqs } from '../../lib/util';
-import { Professor } from '../Professor';
-import { useWindowSize } from '../../lib/hooks';
+import { COURSE_STATUS } from '../../lib/constants.js';
+import { getIcon } from '../../lib/util';
 import PropTypes from 'prop-types';
 const cx = classNames.bind(styles);
 
-// The Class component for the left course list
-export const Class = React.forwardRef((props, ref) => {
+// The class component for the right course list
+export const ClassHeader = React.forwardRef((props, ref) => {
     const {
         className,
         classInfo,
@@ -19,12 +17,7 @@ export const Class = React.forwardRef((props, ref) => {
         number,
         subject,
         name,
-        prereqs,
-        coreqs,
-        frequency,
-        professors
     } = classInfo;
-    const { width } = useWindowSize();
     const [expand, setExpand] = useState(false);
     const [dragging, setDragging] = useState(false);
     const [movableX, setMovableX] = useState(0);
@@ -85,6 +78,7 @@ export const Class = React.forwardRef((props, ref) => {
                 top: `${movableY}px`,
                 width: `${header.current.offsetWidth}px`
             }}
+            data-testid='class-header-dragging'
         >
             <span className={cx(styles.code)}>{`${subject} ${number}`}</span>
             <div className={cx(styles.name)}>{name}</div>
@@ -92,43 +86,22 @@ export const Class = React.forwardRef((props, ref) => {
         </div>}
         <div 
             className={cx(styles.block, styles[status], className, {[styles.dragging]: dragging})}
-            data-testid='class-wrapper'
+            data-testid='class-header'
         >
             <div 
                 className={cx(styles.header, styles[status], {[styles.expand]: expand})}
                 onMouseDown={onDragStart}
                 ref={header}
-                data-testid='class'
             >
-                <span className={cx(styles.code)} data-testid='class-code'>{`${subject} ${number}`}</span>
-                <div className={cx(styles.name)} data-testid='class-name'>{name}</div>
-                <img className={cx(styles.status)} src={getIcon(status)} data-testid='class-status'/>
-            </div>
-            <div className={cx(styles.content, {[styles.expand]: expand})}>
-                <div className={cx(styles.row)}>
-                    <span className={cx(styles.rowLabel)}>{TEXT.PREREQUISITES}</span>
-                    <div className={cx(styles.rowContent)} data-testid='class-prereqs'>{parsePrereqs(prereqs)}</div>
-                </div>
-                <div className={cx(styles.row)}>
-                    <span className={cx(styles.rowLabel)}>{TEXT.COREQUISITES}</span>
-                    <div className={cx(styles.rowContent)} data-testid='class-coreqs'>{parsePrereqs(coreqs)}</div>
-                </div>
-                <div className={cx(styles.row)}>
-                    <span className={cx(styles.rowLabel)}>{TEXT.FREQUENCY}</span>
-                    <div className={cx(styles.rowContent)} data-testid='class-frequency'>{frequency}</div>
-                </div>
-                <div className={cx(styles.row)}>
-                    <span className={cx(styles.rowLabel)}>{TEXT.PROFESSORS}</span>
-                </div>
-                {professors?.map(professor => <Professor 
-                    {...professor}
-                />)}
+                <span className={cx(styles.code)} data-testid='class-header-code'>{`${subject} ${number}`}</span>
+                <div className={cx(styles.name)} data-testid='class-header-name'>{name}</div>
+                <img className={cx(styles.status)} src={getIcon(status)} data-testid='class-header-icon'/>
             </div>
         </div>
     </>
 });
 
-Class.propTypes = {
+ClassHeader.propTypes = {
     className: PropTypes.string,
     classInfo: PropTypes.object,
     status: PropTypes.string

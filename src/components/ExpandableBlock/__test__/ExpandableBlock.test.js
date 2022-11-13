@@ -46,6 +46,17 @@ test('ExpandableBlock render', async () => {
     await expect(titleEle).toBeInTheDocument();
     await expect(titleEle).toHaveTextContent(defaultTitle);
     await expect(icon).toBeInTheDocument();
-    await expect(content).toBeInTheDocument();
+    await expect(content).not.toBeInTheDocument();
+    await expect(utils.queryByTestId('test-child')).not.toBeInTheDocument();
+});
+
+test('ExpandableBlock expand', async () => {
+    const {
+        utils,
+        header,
+    } = setUp({});
+    await expect(header).toBeInTheDocument();
+    await fireEvent.click(header);
+    await expect(utils.queryByTestId('exandable-block-content')).toBeInTheDocument();
     await expect(utils.queryByTestId('test-child')).toBeInTheDocument();
 });

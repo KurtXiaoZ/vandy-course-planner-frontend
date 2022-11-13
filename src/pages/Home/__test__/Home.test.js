@@ -66,7 +66,7 @@ test('Home small screen', async () => {
     await expect(listShifterArrow).toBeInTheDocument();
     await expect(couserLists.style.transform).toEqual('');
     await fireEvent.click(listShifterArrow);
-    await expect(couserLists.style.transform).toEqual("translateX(-360px)");
+    await expect(couserLists.scrollLeft).toEqual(360);
     await fireEvent.click(listShifterArrow);
-    await expect(couserLists.style.transform).toEqual("translateX(0)");
+    await expect(couserLists.scrollLeft).toEqual(0);
 });

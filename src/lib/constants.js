@@ -64,9 +64,9 @@ export const TEST_COMPUTER_SCIENCE_CORE = {
             name: 'Programming and Problem Solving',
         },
         {
-            number: 1101,
+            number: 2201,
             subject: 'CS',
-            name: 'Programming and Problem Solving',
+            name: 'Data Structures',
         },
     ]
 }

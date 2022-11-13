@@ -2,7 +2,7 @@ import styles from './index.module.css';
 import classNames from 'classnames/bind';
 import RightArrowIcon from '../../assets/icons/rightArrow.svg';
 import PropTypes from 'prop-types';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 const cx = classNames.bind(styles);
 
 // Button component for the top navigation bar at Home page

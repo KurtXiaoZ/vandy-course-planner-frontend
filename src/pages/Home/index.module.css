@@ -41,8 +41,10 @@
 }
 
 .courseLists.smallScreen {
-    width: fit-content;
+    overflow-x: auto;
     column-gap: 10px;
+    justify-content: flex-start;
+    scroll-behavior: smooth;
 }
 
 .lastVersion {
@@ -66,10 +68,18 @@
     box-sizing: border-box;
 }
 
+/*
 .courseList.smallScreen {
     background-color: white;
     max-width: none;
 }
+*/
+
+.courseList.smallScreen {
+    max-width: none;
+    flex-grow: none;
+}
+
 
 .listShifter {
     height: 100%;

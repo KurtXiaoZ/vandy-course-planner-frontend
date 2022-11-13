@@ -27,8 +27,8 @@ export const Home = () => {
     const listShifter = useRef();
 
     const shiftCourseLists = () => {
-        if(arrowDir === 0) courseLists.current.style.transform = `translateX(${40 - width}px)`;
-        else courseLists.current.style.transform = `translateX(0)`;
+        if(arrowDir === 0) courseLists.current.scrollLeft = width - 40;
+        else courseLists.current.scrollLeft = 0;
         setArrowDir((arrowDir + 1) % 2);
     }
 
@@ -65,11 +65,11 @@ export const Home = () => {
                 className={cx(styles.courseList, {
                     [styles.smallScreen]: smallScreenCourseLists
                 })}
-                style={{ width: smallScreenCourseLists ? `${width - 65}px` : undefined }}
+                style={{ minWidth: smallScreenCourseLists ? `${width - 65}px` : undefined }}
                 ref={leftList}
                 data-testid='left-courseList'
             >
-                <ExpandableBlock title='CS 1000 Level Course'>
+                {<ExpandableBlock title='CS 1000 Level Course'>
                     <Class 
                         classInfo={TEST_CLASS_INFO}
                         status={COURSE_STATUS.SELECTED}
@@ -80,7 +80,7 @@ export const Home = () => {
                         status={COURSE_STATUS.SELECTED}
                         ref={smallScreenCourseLists ? listShifter : rightList}
                     />
-                </ExpandableBlock>
+                </ExpandableBlock>}
             </div>
             {smallScreenCourseLists && <div
                 className={cx(styles.listShifter)}
@@ -99,14 +99,14 @@ export const Home = () => {
                 className={cx(styles.courseList, {
                     [styles.smallScreen]: smallScreenCourseLists
                 })}
-                style={{ width: smallScreenCourseLists ? `${width - 65}px` : undefined }}
+                style={{ minWidth: smallScreenCourseLists ? `${width - 65}px` : undefined }}
                 ref={rightList}
                 data-testid='right-courseList'
             >
-                <MajorRequirement 
+                {<MajorRequirement 
                     {...TEST_COMPUTER_SCIENCE_CORE}
                     ref={smallScreenCourseLists ? listShifter : leftList}
-                />
+                />}
             </div>
         </div>
     </div>

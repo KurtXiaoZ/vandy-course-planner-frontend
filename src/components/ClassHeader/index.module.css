@@ -1,0 +1,102 @@
+@value font from '../../index.module.css';
+
+.block {
+    composes: font;
+    width: 100%;
+    border-radius: 10px;
+    margin: 10px 0px;
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+    font-size: 16px;
+}
+
+.block.dragging {
+    user-select: none;
+}
+
+.block.selected {
+    background-color: rgba(223, 239, 216, 1);
+}
+
+.block.notable {
+    background-color: rgba(242, 222, 221, 1);
+}
+
+.block.able {
+    background-color: rgba(212, 212, 212, 1);
+}
+
+.moveable {
+    position: fixed;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    height: 44px;
+    border-radius: 10px;
+    padding: 0 15px;
+    box-sizing: border-box;
+    cursor: pointer;
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+    user-select: none;
+}
+
+.moveable.selected {
+    background-color: rgba(223, 239, 216, 1);
+    color: rgba(59, 118, 61, 1);
+}
+
+.moveable.notable {
+    background-color: rgba(242, 222, 221, 1);
+    color: rgba(169, 67, 66, 1);
+}
+
+.moveable.able {
+    background-color: rgba(212, 212, 212, 1);
+    color: rgba(103, 103, 103, 1);
+}
+
+.header {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    height: 44px;
+    border-radius: 10px;
+    padding: 0 15px;
+    box-sizing: border-box;
+    cursor: pointer;
+    border-bottom: 1px solid rgba(150, 150, 150, 1);
+}
+
+.header.expand {
+    border-radius: 10px 10px 0 0;
+    border-bottom: 1px solid rgba(150, 150, 150, 1);
+}
+
+.header.selected {
+    color: rgba(59, 118, 61, 1);
+}
+
+.header.notable {
+    color: rgba(169, 67, 66, 1);
+}
+
+.header.able {
+    color: rgba(103, 103, 103, 1);
+}
+
+.code {
+    width: fit-content;
+}
+
+.name {
+    width: 0;
+    flex-grow: 1;
+    margin: 0 7px;
+    white-space: nowrap;
+    overflow: auto;
+}
+
+.status {
+    margin-left: auto;
+    width: 32px;
+    height: 32px;
+}
