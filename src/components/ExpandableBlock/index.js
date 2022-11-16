@@ -13,30 +13,37 @@ export const ExpandableBlock = (props) => {
         children
     } = props;
     const [expand, setExpand] = useState(false);
+    const [animatedExpand, setAnimatedExpand] = useState(false);
 
     const onClick = () => {
-        setExpand(!expand);
+        if(expand) {
+            setAnimatedExpand(false);
+            setTimeout(() => setExpand(false), 1000);
+        }
+        else {
+            setTimeout(() => setAnimatedExpand(true), 100);
+            setExpand(true);
+        }
     }
 
     return <div 
         className={cx(styles.block, className)}
-        onClick={onClick}
         data-testid='exandable-block'
     >
-        <div className={cx(styles.header, {[styles.expand]: expand})} data-testid='exandable-block-header'>
+        <div onClick={onClick} className={cx(styles.header, {[styles.expand]: animatedExpand})} data-testid='exandable-block-header'>
             <span className={cx(styles.title)} data-testid='exandable-block-title'>
                 {title}
             </span>
             <img 
                 src={RightArrowIcon}
                 className={cx(styles.arrow)}
-                style={{transform: `rotate(${expand ? '90deg' : '180deg'})`}}
+                style={{transform: `rotate(${animatedExpand ? '90deg' : '180deg'})`}}
                 data-testid='exandable-block-icon'
             />
         </div>
-        <div className={cx(styles.content, {[styles.expand]: expand})} data-testid='exandable-block-content'>
+        {expand && <div className={cx(styles.content, {[styles.expand]: animatedExpand})} data-testid='exandable-block-content'>
             {children}
-        </div>
+        </div>}
     </div>
 };
 
