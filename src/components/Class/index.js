@@ -2,7 +2,7 @@ import styles from './index.module.css';
 import classNames from 'classnames/bind';
 import React, { useRef, useState } from 'react';
 import { COURSE_STATUS, TEXT } from '../../lib/constants.js';
-import { getIcon, parsePrereqs } from '../../lib/util';
+import { emptyReqs, getIcon, parsePrereqs } from '../../lib/util';
 import { Professor } from '../Professor';
 import { useWindowSize } from '../../lib/hooks';
 import PropTypes from 'prop-types';
@@ -105,18 +105,18 @@ export const Class = React.forwardRef((props, ref) => {
                 <img className={cx(styles.status)} src={getIcon(status)} data-testid='class-status'/>
             </div>
             <div className={cx(styles.content, {[styles.expand]: expand})}>
-                <div className={cx(styles.row)}>
+                {!emptyReqs(prereqs) && <div className={cx(styles.row)}>
                     <span className={cx(styles.rowLabel)}>{TEXT.PREREQUISITES}</span>
                     <div className={cx(styles.rowContent)} data-testid='class-prereqs'>{parsePrereqs(prereqs)}</div>
-                </div>
-                <div className={cx(styles.row)}>
+                </div>}
+                {!emptyReqs(coreqs) && <div className={cx(styles.row)}>
                     <span className={cx(styles.rowLabel)}>{TEXT.COREQUISITES}</span>
                     <div className={cx(styles.rowContent)} data-testid='class-coreqs'>{parsePrereqs(coreqs)}</div>
-                </div>
-                <div className={cx(styles.row)}>
+                </div>}
+                {frequency && <div className={cx(styles.row)}>
                     <span className={cx(styles.rowLabel)}>{TEXT.FREQUENCY}</span>
                     <div className={cx(styles.rowContent)} data-testid='class-frequency'>{frequency}</div>
-                </div>
+                </div>}
                 <div className={cx(styles.row)}>
                     <span className={cx(styles.rowLabel)}>{TEXT.PROFESSORS}</span>
                 </div>

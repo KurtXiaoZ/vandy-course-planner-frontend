@@ -1,15 +1,17 @@
 import styles from './index.module.css';
 import classNames from 'classnames/bind';
 import { useAuth, useWindowSize } from '../../lib/hooks';
-import { COURSE_STATUS, SCREEN, TEST_CLASS_INFO, TEST_COMPUTER_SCIENCE_CORE, TEXT } from '../../lib/constants';
+import { SCREEN, TEXT } from '../../lib/constants';
 import { TopNavButton } from '../../components/TopNavButton';
 import VersionIcon from '../../assets/icons/version.svg';
 import ExitIcon from '../../assets/icons/exit.svg';
 import RightArrowIcon from '../../assets/icons/rightArrow.svg';
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { ExpandableBlock } from '../../components/ExpandableBlock';
 import { Class } from '../../components/Class';
-import { MajorRequirement } from '../../components/MajorRequirement';
+import { getCourses } from '../../lib/services';
+import { toast } from 'react-toastify';
+import { getCourseLevels } from '../../lib/util';
 const cx = classNames.bind(styles);
 
 // the Home page where users manage their courses
@@ -20,6 +22,7 @@ export const Home = () => {
     const smallScreenCourseLists = type === SCREEN.MOBILE || width < 700;
     // 0 --> right, 1 --> left
     const [arrowDir, setArrowDir] = useState(0);
+    const [courseLevels, setCourseLevels] = useState([]);
 
     const courseLists = useRef();
     const leftList = useRef();
@@ -31,6 +34,18 @@ export const Home = () => {
         else courseLists.current.scrollLeft = 0;
         setArrowDir((arrowDir + 1) % 2);
     }
+
+    useEffect(() => {
+        getCourses()
+            .then(res => {
+                const { code, obj } = res;
+                if(code === 200) {
+                    setCourseLevels(getCourseLevels(obj));                    
+                }
+                else toast('Error fetching course information')
+            })
+            .catch(err => toast('Error fetching course information'));
+    }, []);
 
     return <div className={cx(styles.wrapper)} data-testid='home-wrapper'>
         <div className={cx(styles.topNav)} data-testid='home-topnav'>
@@ -61,7 +76,7 @@ export const Home = () => {
             data-testid='home-courseLists'
             ref={courseLists}
         >
-            <div 
+            <div
                 className={cx(styles.courseList, {
                     [styles.smallScreen]: smallScreenCourseLists
                 })}
@@ -69,18 +84,14 @@ export const Home = () => {
                 ref={leftList}
                 data-testid='left-courseList'
             >
-                {<ExpandableBlock title='CS 1000 Level Course'>
-                    <Class 
-                        classInfo={TEST_CLASS_INFO}
-                        status={COURSE_STATUS.SELECTED}
+                {Object.entries(courseLevels).map(([courseLevel, courses]) => <ExpandableBlock
+                    title={courseLevel}
+                >
+                    {courses.map(course => <Class 
+                        classInfo={course}
                         ref={smallScreenCourseLists ? listShifter : rightList}
-                    />
-                    <Class 
-                        classInfo={TEST_CLASS_INFO}
-                        status={COURSE_STATUS.SELECTED}
-                        ref={smallScreenCourseLists ? listShifter : rightList}
-                    />
-                </ExpandableBlock>}
+                    />)}
+                </ExpandableBlock>)}
             </div>
             {smallScreenCourseLists && <div
                 className={cx(styles.listShifter)}
@@ -95,7 +106,7 @@ export const Home = () => {
                     data-testid='list-shifter-arrow'
                 />
             </div>}
-            <div 
+            <div
                 className={cx(styles.courseList, {
                     [styles.smallScreen]: smallScreenCourseLists
                 })}
@@ -103,10 +114,6 @@ export const Home = () => {
                 ref={rightList}
                 data-testid='right-courseList'
             >
-                {<MajorRequirement 
-                    {...TEST_COMPUTER_SCIENCE_CORE}
-                    ref={smallScreenCourseLists ? listShifter : leftList}
-                />}
             </div>
         </div>
     </div>
