@@ -1,7 +1,7 @@
 import styles from './index.module.css';
 import classNames from 'classnames/bind';
 import RMPIcon from '../../assets/icons/rmp.svg';
-import { TEXT } from '../../lib/constants';
+import { COURSE, TEXT } from '../../lib/constants';
 import PropTypes from 'prop-types';
 const cx = classNames.bind(styles);
 
@@ -23,7 +23,7 @@ export const Professor = (props) => {
             <span className={cx(styles.overRate)} data-testid='professor-overall-rate'>{`${TEXT.OVERALL_QUALITY}${over_rate}`}</span>
         </div>
         <div className={cx(styles.row)}>
-            <a href={tid} target='_blank' data-testid='professor-tid'><img className={cx(styles.tid)} src={RMPIcon}/></a>
+            <a href={COURSE.RMP + tid} target='_blank' data-testid='professor-tid'><img className={cx(styles.tid)} src={RMPIcon}/></a>
             <span className={cx(styles.diffRate)} data-testid='professor-difficulty-rate'>{`${TEXT.DIFFICULTY}${diff_rate}`}</span>
         </div>
     </div>

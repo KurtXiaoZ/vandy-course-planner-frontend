@@ -1,11 +1,12 @@
 import { fireEvent, render } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import { Professor } from '..';
+import { COURSE } from '../../../lib/constants';
 
 const defaultName = 'ABC DEF';
 const defaultOverRate = 2.7;
 const defaultDiffRate = 1.9;
-const defaultTid = 'https://dummy.com';
+const defaultTid = '1234567';
 
 const setUp = ({
     name = defaultName,
@@ -46,5 +47,5 @@ test('Professor render', async () => {
     await expect(nameEle).toHaveTextContent(defaultName);
     await expect(overallRate).toHaveTextContent(defaultOverRate);
     await expect(difficultyRate).toHaveTextContent(defaultDiffRate);
-    await expect(tidEle).toHaveAttribute('href', defaultTid);
+    await expect(tidEle).toHaveAttribute('href', COURSE.RMP + defaultTid);
 });
