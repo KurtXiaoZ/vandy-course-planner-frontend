@@ -30,6 +30,7 @@ export const MajorRequirement = React.forwardRef((props, ref) => {
         {selected.map(course => <ClassHeader 
             classInfo={course}
             status={COURSE_STATUS.SELECTED}
+            key={course.name+course.number}
             ref={ref}
         />)}
     </ExpandableBlock>

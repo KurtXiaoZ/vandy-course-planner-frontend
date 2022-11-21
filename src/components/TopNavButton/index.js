@@ -38,7 +38,7 @@ export const TopNavButton = (props) => {
 };
 
 TopNavButton.propTypes = {
-    icon: PropTypes.object,
+    icon: PropTypes.string,
     text: PropTypes.string,
     className: PropTypes.string,
     style: PropTypes.object,

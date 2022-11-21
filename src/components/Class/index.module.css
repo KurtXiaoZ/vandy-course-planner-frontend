@@ -17,7 +17,7 @@
     background-color: rgba(223, 239, 216, 1);
 }
 
-.block.notable {
+.block.unable {
     background-color: rgba(242, 222, 221, 1);
 }
 
@@ -44,7 +44,7 @@
     color: rgba(59, 118, 61, 1);
 }
 
-.moveable.notable {
+.moveable.unable {
     background-color: rgba(242, 222, 221, 1);
     color: rgba(169, 67, 66, 1);
 }
@@ -75,7 +75,7 @@
     color: rgba(59, 118, 61, 1);
 }
 
-.header.notable {
+.header.unable {
     color: rgba(169, 67, 66, 1);
 }
 

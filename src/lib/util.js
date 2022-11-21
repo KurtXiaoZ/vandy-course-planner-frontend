@@ -32,8 +32,15 @@ export const getIcon = (status) => {
  */
 export const parsePrereqs = (prereqs) => {
     const arr = prereqs?.map(x => x.join(' or '));
-    return arr?.filter?.(x => x.length > 0)?.join(' and ');
+    return arr?.filter?.(x => x.length > 0)?.join('; and ');
 }
+
+/**
+ * Parse to get corequisites for a course
+ * @param {Array} coreqs corequisites for a course
+ * @return corequisites for a course
+ */
+export const parseCoreqs = (coreqs) => coreqs?.join(' and ');
 
 /**
  * Append params to a base url for GET requests
@@ -57,12 +64,30 @@ export const appendParams = (url, params) => {
  * @param {Object} courses the response from /courses/ api
  * @returns an object representing course levels and the corresponding courses
  */
-export const getCourseLevels = (courses) => {
+export const getCourseLevels = (courses, statuses) => {
     const res = {};
-    for(const course of courses) {
-        const { number } = course;
-        const courseLevel = number.toString()[0] + '000';
-        if(!res[courseLevel]) res[courseLevel] = [];
+    for (const course of courses) {
+        course.status = statuses[[course.subject, course.number].join("")];
+        course.number = course.number % 10000;
+        const { number, subject } = course;
+        let courseLevel = null;
+        switch (subject) {
+            case "CS":
+                courseLevel = ["Computer Science ", number.toString()[0], "000 Level"].join("");
+                break;
+            case "EECE":
+                courseLevel = "Electrical & Computer Engineering";
+                break;
+            case "MATH":
+                courseLevel = "Mathematics";
+                break;
+            case "DS":
+                courseLevel = "Data Science";
+                break;
+            default:
+                courseLevel = "Stats from Other Majors";
+        }
+        if (!res[courseLevel]) res[courseLevel] = [];
         res[courseLevel].push(course);
     }
     const keys = Object.keys(res);
