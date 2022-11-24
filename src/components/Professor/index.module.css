@@ -36,12 +36,22 @@
     cursor: pointer;
 }
 
-.overRate {
+.rateGood {
     margin-left: auto;
     color: rgba(107, 147, 100, 1);
 }
 
-.diffRate {
+.rateMid {
+    margin-left: auto;
+    color: rgb(254, 144, 9);
+}
+
+.rateBad {
     margin-left: auto;
     color: rgba(232, 0, 0, 1);
+}
+
+.rateNa {
+    margin-left: auto;
+    color: rgb(83, 83, 83);
 }

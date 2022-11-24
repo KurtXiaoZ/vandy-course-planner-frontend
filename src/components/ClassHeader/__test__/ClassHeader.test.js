@@ -5,7 +5,7 @@ import { COURSE_STATUS, TEST_CLASS_INFO } from '../../../lib/constants';
 
 const defaultClassName = 'className';
 const defaultClassInfo = TEST_CLASS_INFO;
-const defaultStatus = COURSE_STATUS;
+const defaultStatus = COURSE_STATUS.SELECTED;
 
 const setUp = ({
     className = defaultClassName,

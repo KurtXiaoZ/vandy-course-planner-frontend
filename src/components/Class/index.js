@@ -2,9 +2,9 @@ import styles from './index.module.css';
 import classNames from 'classnames/bind';
 import React, { useRef, useState } from 'react';
 import { COURSE_STATUS, TEXT } from '../../lib/constants.js';
-import { emptyReqs, getIcon, parsePrereqs } from '../../lib/util';
+import { emptyReqs, getIcon, parsePrereqs, parseCoreqs } from '../../lib/util';
 import { Professor } from '../Professor';
-import { useWindowSize } from '../../lib/hooks';
+import { useAuth, useWindowSize } from '../../lib/hooks';
 import PropTypes from 'prop-types';
 const cx = classNames.bind(styles);
 
@@ -13,7 +13,7 @@ export const Class = React.forwardRef((props, ref) => {
     const {
         className,
         classInfo,
-        status = COURSE_STATUS.NOT_ABLE,
+        // status = COURSE_STATUS.NOT_ABLE,
     } = props;
     const {
         number,
@@ -22,9 +22,11 @@ export const Class = React.forwardRef((props, ref) => {
         prereqs,
         coreqs,
         frequency,
-        professors
+        professors,
+        status
     } = classInfo;
     const { width } = useWindowSize();
+    // const { authEmail } = useAuth();
     const [expand, setExpand] = useState(false);
     const [dragging, setDragging] = useState(false);
     const [movableX, setMovableX] = useState(0);
@@ -34,6 +36,12 @@ export const Class = React.forwardRef((props, ref) => {
     const header = useRef();
 
     const onDragStart = (e) => {
+        if (status !== COURSE_STATUS["ABLE"]) {
+            if(!dragRef.current) {
+                setExpand(!expand);
+            }
+            return;
+        }
         const { x: headerX, y: headerY } = header.current.getBoundingClientRect();
         dragOffset.current.x = e.clientX - headerX;
         dragOffset.current.y = e.clientY - headerY;
@@ -86,7 +94,7 @@ export const Class = React.forwardRef((props, ref) => {
                 width: `${header.current.offsetWidth}px`
             }}
         >
-            <span className={cx(styles.code)}>{`${subject} ${number}`}</span>
+            <span className={cx(styles.code)}>{`${subject} ${(number % 10000)}`}</span>
             <div className={cx(styles.name)}>{name}</div>
             <img className={cx(styles.status)} src={getIcon(status)}/>
         </div>}
@@ -100,7 +108,7 @@ export const Class = React.forwardRef((props, ref) => {
                 ref={header}
                 data-testid='class'
             >
-                <span className={cx(styles.code)} data-testid='class-code'>{`${subject} ${number}`}</span>
+                <span className={cx(styles.code)} data-testid='class-code'>{`${subject} ${(number % 10000)}`}</span>
                 <div className={cx(styles.name)} data-testid='class-name'>{name}</div>
                 <img className={cx(styles.status)} src={getIcon(status)} data-testid='class-status'/>
             </div>
@@ -111,16 +119,18 @@ export const Class = React.forwardRef((props, ref) => {
                 </div>}
                 {!emptyReqs(coreqs) && <div className={cx(styles.row)}>
                     <span className={cx(styles.rowLabel)}>{TEXT.COREQUISITES}</span>
-                    <div className={cx(styles.rowContent)} data-testid='class-coreqs'>{parsePrereqs(coreqs)}</div>
+                    <div className={cx(styles.rowContent)} data-testid='class-coreqs'>{parseCoreqs(coreqs)}</div>
                 </div>}
                 {frequency && <div className={cx(styles.row)}>
                     <span className={cx(styles.rowLabel)}>{TEXT.FREQUENCY}</span>
                     <div className={cx(styles.rowContent)} data-testid='class-frequency'>{frequency}</div>
                 </div>}
+                {professors.length > 0 && 
                 <div className={cx(styles.row)}>
                     <span className={cx(styles.rowLabel)}>{TEXT.PROFESSORS}</span>
-                </div>
+                </div>}
                 {professors?.map(professor => <Professor 
+                    key={professor.tid}
                     {...professor}
                 />)}
             </div>

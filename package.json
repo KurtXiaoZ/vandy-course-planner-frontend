@@ -14,11 +14,13 @@
     "react-router-dom": "^6.4.1",
     "react-scripts": "5.0.1",
     "react-toastify": "^9.0.8",
-    "web-vitals": "^2.1.4"
+    "web-vitals": "^2.1.4",
+    "env-cmd": "10.1.0"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
+    "start:dev": "env-cmd -f dev.env npm start",
     "test": "react-scripts test --watchAll=false",
     "eject": "react-scripts eject"
   },
