@@ -26,7 +26,7 @@ export const Class = React.forwardRef((props, ref) => {
         status
     } = classInfo;
     const { width } = useWindowSize();
-    const { authEmail } = useAuth();
+    // const { authEmail } = useAuth();
     const [expand, setExpand] = useState(false);
     const [dragging, setDragging] = useState(false);
     const [movableX, setMovableX] = useState(0);

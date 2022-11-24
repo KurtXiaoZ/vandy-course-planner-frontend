@@ -30,9 +30,7 @@ export const Home = () => {
     const rightList = useRef();
     const listShifter = useRef();
     const [courseSelected, setCourseSelected] = useState([]);
-    // const courseSelected = useRef([]);
     const [categories, setCategories] = useState
-    // const categories = useRef
     ({
         core: [],
         project: [],
@@ -63,67 +61,44 @@ export const Home = () => {
                     .then(resp => {
                         const { code, obj } = resp;
                         if (code === 200) {
-                            const x = lists
-                                .filter((crs) => obj[crs.subject + crs.number] === COURSE_STATUS["SELECTED"]);
-                            setCourseSelected(x);
+                            setCourseSelected(
+                                lists.filter((crs) => obj[crs.subject + crs.number] === COURSE_STATUS["SELECTED"])
+                                );
                             setCourseLevels(getCourseLevels(lists, obj));
-                            return x;
-                        }
+                        } 
                         else toast('Error fetching saving information in backend');
                     })
-                    // .then(selected => {
-                    //     if (selected !== null) {
-                    //         selected.forEach((crs) => {
-                    //             classifyCrs({subject: crs.subject, number: crs.number})
-                    //                 .then(resp => {
-                    //                     const { code, obj } = resp;
-                    //                     if (code === 200) {
-                    //                         if (obj === "software" || obj === "hardware" || obj === "foundation") {
-                    //                             categories.current["core"].push(crs);
-                    //                         } else {
-                    //                             categories.current[obj].push(crs);
-                    //                         }
-                    //                     } 
-                    //                     else toast('Error fetching course requirement information in backend');
-                    //                 })
-                    //                 .catch(err => toast('Error fetching course requirement information'));
-                    //         });
-                    //     } 
-                    // }) 
                     .catch(err => toast('Error fetching saving information'));
             })
             .catch(err => toast('Error fetching course information'));
     }, [authEmail]);
 
     useEffect(() => {
-        if (courseSelected.length > 0) {
-            const temp = {
-                core: [],
-                project: [],
-                depth: [],
-                seminar: [],
-            }; 
-            courseSelected.forEach((crs) => {
-                classifyCrs({subject: crs.subject, number: crs.number})
-                    .then(resp => {
-                        const { code, obj } = resp
-                        if (code === 200) {
-                            if (obj === "software" || obj === "hardware" || obj === "foundation") {
-                                temp.core.push(crs);
-                            } else if (obj !== null) {
-                                // if (!temp[String(obj)]) temp[obj] = [];
-                                temp[String(obj)].push(crs);
-                            }
-                        } 
-                        else toast('Error fetching course requirement information in backend');
-                    })
-                    .catch(err => toast('Error fetching course requirement information'));
-            });
-            console.log(temp);
-            setCategories(temp);
-        }
-        // console.log(categories);
-    }, [courseSelected.length]);
+        const temp = {
+            core: [],
+            project: [],
+            depth: [],
+            seminar: [],
+        };
+        Promise.all(
+            courseSelected.map((crs) => {
+                return Promise.resolve(
+                    classifyCrs({subject: crs.subject, number: crs.number})
+                        .then(resp => {
+                            const { code, obj } = resp
+                            if (code === 200) {
+                                if (obj === "software" || obj === "hardware" || obj === "foundation") {
+                                    temp.core.push(crs);
+                                } else if (obj !== null) {
+                                    temp[String(obj)].push(crs);
+                                }
+                            } 
+                            else toast('Error fetching course requirement information in backend');
+                        })
+                        .catch(err => toast('Error fetching course requirement information')));
+            })
+        ).then(r => setCategories(temp));
+    }, [courseSelected]);
 
     return <div className={cx(styles.wrapper)} data-testid='home-wrapper'>
         <div className={cx(styles.topNav)} data-testid='home-topnav'>

@@ -14,7 +14,7 @@ const setUp = ({
         className={className}
         title={title}
     >
-        {children || <div data-testid='test-child'></div>}
+        {children || [<div data-testid='test-child'></div>]}
     </ExpandableBlock>);
     const block = utils.queryByTestId('exandable-block');
     const header = utils.queryByTestId('exandable-block-header');

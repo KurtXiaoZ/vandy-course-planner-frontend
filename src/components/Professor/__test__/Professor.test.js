@@ -6,7 +6,7 @@ import { COURSE } from '../../../lib/constants';
 const defaultName = 'ABC DEF';
 const defaultOverRate = 2.7;
 const defaultDiffRate = 1.9;
-const defaultTid = '1234567';
+const defaultTid = 1234567;
 
 const setUp = ({
     name = defaultName,
