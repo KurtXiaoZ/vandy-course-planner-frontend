@@ -12,6 +12,7 @@ import { Class } from '../../components/Class';
 import { getCourses } from '../../lib/services';
 import { toast } from 'react-toastify';
 import { getCourseLevels } from '../../lib/util';
+import { Toggle } from '../../components/Toggle';
 const cx = classNames.bind(styles);
 
 // the Home page where users manage their courses
@@ -39,6 +40,7 @@ export const Home = () => {
         getCourses()
             .then(res => {
                 const { code, obj } = res;
+                console.log(obj);
                 if(code === 200) {
                     setCourseLevels(getCourseLevels(obj));                    
                 }
@@ -57,13 +59,18 @@ export const Home = () => {
             >
                 {`Hello, ${authName}`}
             </span>
+            {/*<TopNavButton
+                className={cx(styles.toggle)}
+                text={TEXT.ENG}
+                icon={VersionIcon}
+            />*/}
             <TopNavButton
                 className={cx(styles.lastVersion)}
                 text={TEXT.LAST_VERSION}
                 icon={VersionIcon}
             />
             <TopNavButton
-                className={cx(styles.exit)}
+                className={cx(styles.exit, {[styles.smallScreen]: smallScreenTopNav})}
                 text={TEXT.EXIT}
                 icon={ExitIcon}
                 onClick={() => updateAuth({})}

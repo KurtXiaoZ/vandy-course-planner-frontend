@@ -15,7 +15,9 @@ export const TEXT = {
     OVERALL_QUALITY: 'Overall Quality -- ',
     DIFFICULTY: 'Difficulty -- ',
     DESCRIPTION: 'Description: ',
-    UNITS: 'Units: '
+    UNITS: 'Units: ',
+    ENG: 'Eng',
+    NON_ENG: 'Non-Eng',
 }
 
 export const COURSE_STATUS = {

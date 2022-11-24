@@ -47,6 +47,11 @@
     scroll-behavior: smooth;
 }
 
+.toggle {
+    margin-left: auto;
+    margin-right: 20px;
+}
+
 .lastVersion {
     margin-left: auto;
     margin-right: 20px;
@@ -54,6 +59,10 @@
 
 .exit {
     margin-right: 30px;
+}
+
+.exit.smallScreen {
+    margin-right: 10px;
 }
 
 .courseList {
