@@ -23,11 +23,13 @@ export const TEXT = {
 export const COURSE_STATUS = {
     SELECTED: 'selected',
     ABLE: 'able',
-    NOT_ABLE: 'notable'
+    NOT_ABLE: 'unable'
 }
 
 export const COURSE = {
     RMP: 'https://www.ratemyprofessors.com/professor?tid=',
+    ADD: 'ADD',
+    DELETE: 'DELETE',
 }
 
 export const TEST_COMPUTER_SCIENCE_CORE = {
@@ -51,19 +53,27 @@ export const MAJOR_REQUIREMENTS = {
     'Computer Science Core': {
         description: 'Software/Problem Solving: CS 1101 or 1104; CS 2201, 3251, 3270; Hardware/Systems: EECE 2123/2123L, CS 3281; Foundations: CS 2212, 3250.',
         units: '25 required',
+        simple: "core",
     },
     'Computer Science Project': {
         description: '3 hours to be selected from CS 3259, 3892, 4249, 4269, 4279, or 4287.',
         units: '3 required',
+        simple: "project",
     },
     'Computer Science Depth': {
         description: '12 credit hours to include at least one course selected from CS 4260 or 4278. Remaining hours to be selected from computer science courses numbered 3000 or higher (excluding 3262); EECE 4353, 4354, 4376 and no more than two from MATH 3320, 3620, 4600, 4620. A maximum of 6 hours may come from CS 3860, 3861.',
         units: '12 required',
+        simple: "depth",
     },
     'Computer Science Seminar': {
         description: 'CS 4959',
-        units: '1 required'
+        units: '1 required',
+        simple: "seminar",
     },
+    'Other': {
+        description: 'All other courses',
+        simple: "other",
+    }
 }
 
 export const TEST_CLASS_INFO = {

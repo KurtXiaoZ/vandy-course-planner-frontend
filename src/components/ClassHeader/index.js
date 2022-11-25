@@ -1,9 +1,12 @@
 import styles from './index.module.css';
 import classNames from 'classnames/bind';
 import React, { useRef, useState } from 'react';
-import { COURSE_STATUS } from '../../lib/constants.js';
+import { COURSE, COURSE_STATUS } from '../../lib/constants.js';
 import { getIcon } from '../../lib/util';
 import PropTypes from 'prop-types';
+import { deleteSavings } from '../../lib/services';
+import { useAuth } from '../../lib/hooks';
+import { toast } from 'react-toastify';
 const cx = classNames.bind(styles);
 
 // The class component for the right course list
@@ -11,13 +14,16 @@ export const ClassHeader = React.forwardRef((props, ref) => {
     const {
         className,
         classInfo,
-        status = COURSE_STATUS.NOT_ABLE,
+        status,
+        updateSavings,
+        updateHistory
     } = props;
     const {
         number,
         subject,
         name,
     } = classInfo;
+    const { authEmail } = useAuth();
     const [expand, setExpand] = useState(false);
     const [dragging, setDragging] = useState(false);
     const [movableX, setMovableX] = useState(0);
@@ -60,7 +66,16 @@ export const ClassHeader = React.forwardRef((props, ref) => {
             && e.clientX < rightListX + ref?.current?.offsetWidth
             && e.clientY > rightListY
             && e.clientY < rightListY + ref?.current?.offsetHeight) {
-            console.log('call savings');
+            deleteSavings({ email: authEmail, subject, number })
+                .then(res => {
+                    const { code } = res;
+                    if(code === 200) {
+                        updateHistory({ type: COURSE.DELETE, subject, number });
+                        updateSavings();
+                    }
+                    else toast('Error removing course');
+                })
+                .catch(() => toast('Error removing course'));
         }
         ref.current.style.opacity = null;
         dragRef.current = false;

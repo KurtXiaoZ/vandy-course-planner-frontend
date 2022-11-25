@@ -2,11 +2,17 @@ import { fireEvent, render } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import { MajorRequirement } from '..';
 import { TEST_COMPUTER_SCIENCE_CORE } from '../../../lib/constants';
+import { AuthContext } from '../../../lib/contexts';
+import { BrowserRouter } from 'react-router-dom';
 
 const setUp = () => {
-    const utils = render(<MajorRequirement 
-        {...TEST_COMPUTER_SCIENCE_CORE}
-    />);
+    const utils = render(<AuthContext.Provider value={{ authName: 'name', authEmail: 'email', updateAuth: () => undefined }}>
+        <BrowserRouter>
+            <MajorRequirement 
+                {...TEST_COMPUTER_SCIENCE_CORE}
+            />
+        </BrowserRouter>
+    </AuthContext.Provider>);
     return {
         utils,
     };

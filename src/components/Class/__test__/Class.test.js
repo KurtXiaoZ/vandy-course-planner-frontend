@@ -1,23 +1,26 @@
-import { fireEvent, render } from '@testing-library/react';
+import { render } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import { Class } from '..';
 import { COURSE_STATUS, TEST_CLASS_INFO } from '../../../lib/constants';
+import { AuthContext } from '../../../lib/contexts';
+import { BrowserRouter } from 'react-router-dom';
 
 const defaultClassName = 'className';
-const defaultOverRate = 2.7;
-const defaultDiffRate = 1.9;
-const defaultTid = 'https://dummy.com';
 
 const setUp = ({
     className = defaultClassName,
     classInfo = TEST_CLASS_INFO,
     status = COURSE_STATUS.NOT_ABLE,
 }) => {
-    const utils = render(<Class 
-        className={className}
-        classInfo={classInfo}
-        status={status}
-    />);
+    const utils = render(<AuthContext.Provider value={{ authName: 'name', authEmail: 'email', updateAuth: () => undefined }}>
+        <BrowserRouter>
+            <Class 
+                className={className}
+                classInfo={classInfo}
+                status={status}
+            />
+        </BrowserRouter>
+    </AuthContext.Provider>);
     const classWrapper = utils.queryByTestId('class-wrapper');
     const classEle = utils.queryByTestId('class');
     const classCode = utils.queryByTestId('class-code');

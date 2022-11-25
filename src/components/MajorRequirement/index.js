@@ -13,25 +13,31 @@ export const MajorRequirement = React.forwardRef((props, ref) => {
         title,
         description,
         units,
-        selected
+        selected,
+        updateSavings,
+        updateHistory
     } = props;
 
     return <ExpandableBlock
         title={title}
     >
-        <div className={cx(styles.text)} data-testid='major-requirement-description'>
+        {description && <div className={cx(styles.text)} data-testid='major-requirement-description'>
             <strong>{TEXT.DESCRIPTION}</strong>
             {description}
-        </div>
-        <div className={cx(styles.text)} data-testid='major-requirement-units'>
+        </div>}
+        {units && <div className={cx(styles.text)} data-testid='major-requirement-units'>
             <strong>{TEXT.UNITS}</strong>
             {units}
-        </div>
-        {selected.map(course => <ClassHeader 
+        </div>}
+        {selected?.map(course => <ClassHeader 
             classInfo={course}
             status={COURSE_STATUS.SELECTED}
+            key={course.name+course.number}
+            updateSavings={updateSavings}
+            updateHistory={updateHistory}
             ref={ref}
         />)}
+        <div className={cx(styles.horizontalBlank)}></div>
     </ExpandableBlock>
 });
 
@@ -39,5 +45,6 @@ MajorRequirement.propTypes = {
     title: PropTypes.string,
     description: PropTypes.string,
     units: PropTypes.string,
-    selected: PropTypes.array
+    selected: PropTypes.array,
+    updateSavings: PropTypes.func
 }
