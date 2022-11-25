@@ -2,6 +2,8 @@ import { render } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import { ClassHeader } from '..';
 import { COURSE_STATUS, TEST_CLASS_INFO } from '../../../lib/constants';
+import { AuthContext } from '../../../lib/contexts';
+import { BrowserRouter } from 'react-router-dom';
 
 const defaultClassName = 'className';
 const defaultClassInfo = TEST_CLASS_INFO;
@@ -12,11 +14,15 @@ const setUp = ({
     classInfo = defaultClassInfo,
     status = defaultStatus,
 }) => {
-    const utils = render(<ClassHeader 
-        className={className}
-        classInfo={classInfo}
-        status={status}
-    />);
+    const utils = render(<AuthContext.Provider value={{ authName: 'name', authEmail: 'email', updateAuth: () => undefined }}>
+        <BrowserRouter>
+            <ClassHeader 
+                className={className}
+                classInfo={classInfo}
+                status={status}
+            />
+        </BrowserRouter>
+    </AuthContext.Provider>);
     const header = utils.queryByTestId('class-header');
     const code = utils.queryByTestId('class-header-code');
     const name = utils.queryByTestId('class-header-name');

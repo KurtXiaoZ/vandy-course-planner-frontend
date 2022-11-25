@@ -56,8 +56,13 @@
     margin-right: 30px;
 }
 
+.exit.smallScreen {
+    margin-right: 10px;
+}
+
 .courseList {
     overflow-y: auto;
+    width: 0;
     flex-grow: 1;
     height: 100%;
     background-color: #D4D4D4;

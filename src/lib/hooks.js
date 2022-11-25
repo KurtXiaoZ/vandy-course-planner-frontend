@@ -46,3 +46,7 @@ export const useAuth = () => {
     
     return { authName, authEmail, updateAuth };
 }
+
+export const useCourses = () => {
+    
+}

@@ -108,3 +108,21 @@ export const emptyReqs = (reqs) => {
     if(reqs.length === 1 && (!reqs[0] || reqs[0].length === 0)) return true;
     return false;
 }
+
+/**
+ * Sort selected courses of each category in ascending order
+ * @param {Object} categories categories with selected courses for each category
+ * @returns the sorted categories
+ */
+export const sortCategories = (categories) => {
+    const res = {};
+    Object.entries(categories).forEach(([category, courses]) => {
+        const sortedCourses = [...courses];
+        sortedCourses.sort(({ subject: subjectA, number: numberA }, { subject: subjectB, number: numberB }) => {
+            if(subjectA.localeCompare(subjectB) !== 0) return subjectA.localeCompare(subjectB);
+            return numberA.toString().localeCompare(numberB.toString());
+        });
+        res[category] = sortedCourses;
+    });
+    return res;
+}

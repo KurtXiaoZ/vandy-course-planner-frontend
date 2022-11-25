@@ -15,7 +15,9 @@ export const TEXT = {
     OVERALL_QUALITY: 'Overall Quality -- ',
     DIFFICULTY: 'Difficulty -- ',
     DESCRIPTION: 'Description: ',
-    UNITS: 'Units: '
+    UNITS: 'Units: ',
+    ENG: 'Eng',
+    NON_ENG: 'Non-Eng',
 }
 
 export const COURSE_STATUS = {
@@ -26,6 +28,8 @@ export const COURSE_STATUS = {
 
 export const COURSE = {
     RMP: 'https://www.ratemyprofessors.com/professor?tid=',
+    ADD: 'ADD',
+    DELETE: 'DELETE',
 }
 
 export const TEST_COMPUTER_SCIENCE_CORE = {
@@ -66,6 +70,10 @@ export const MAJOR_REQUIREMENTS = {
         units: '1 required',
         simple: "seminar",
     },
+    'Other': {
+        description: 'All other courses',
+        simple: "other",
+    }
 }
 
 export const TEST_CLASS_INFO = {
