@@ -73,6 +73,7 @@ export const ClassHeader = React.forwardRef((props, ref) => {
                         updateHistory({ type: COURSE.DELETE, subject, number });
                         updateSavings();
                     }
+                    else if(code === 400) toast('Unable to remove course as other courses depend on it');
                     else toast('Error removing course');
                 })
                 .catch(() => toast('Error removing course'));
