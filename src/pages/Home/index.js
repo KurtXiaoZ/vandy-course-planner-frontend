@@ -46,7 +46,7 @@ export const Home = () => {
                 if (code === 200) {
                     setCourseSelected(courses.filter((crs) => obj[crs.subject + crs.number] === COURSE_STATUS.SELECTED));
                     setCourseLevels(getCourseLevels(courses, obj));
-                } 
+                }
                 else toast('Error fetching saving information in backend');
             })
             .catch(() => toast('Error fetching saving information'));
