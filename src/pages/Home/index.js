@@ -5,6 +5,7 @@ import { SCREEN, TEXT, MAJOR_REQUIREMENTS, COURSE_STATUS, COURSE } from '../../l
 import { TopNavButton } from '../../components/TopNavButton';
 import VersionIcon from '../../assets/icons/version.svg';
 import ExitIcon from '../../assets/icons/exit.svg';
+import QuestionIcon from '../../assets/icons/question.svg';
 import RightArrowIcon from '../../assets/icons/rightArrow.svg';
 import { useEffect, useRef, useState } from 'react';
 import { ExpandableBlock } from '../../components/ExpandableBlock';
@@ -13,6 +14,7 @@ import { getCourses, getSavings, classifyCrs, deleteSavings, postSavings } from 
 import { toast } from 'react-toastify';
 import { getCourseLevels, sortCategories } from '../../lib/util';
 import { MajorRequirement } from '../../components/MajorRequirement';
+import ReactTooltip from 'react-tooltip';
 const cx = classNames.bind(styles);
 
 // the Home page where users manage their courses
@@ -100,91 +102,102 @@ export const Home = () => {
             .catch(() => toast('Error fetching course requirement information'))
     }, [courseSelected]);
 
-    return <div className={cx(styles.wrapper)} data-testid='home-wrapper'>
-        <div className={cx(styles.topNav)} data-testid='home-topnav'>
-            <span 
-                className={cx(styles.topNavText, {
-                    [styles.smallScreen]: smallScreenTopNav
-                })}
-                data-testid='home-topnav-text'
-            >
-                {`Hello, ${authName}`}
-            </span>
-            <TopNavButton
-                className={cx(styles.lastVersion)}
-                text={TEXT.LAST_VERSION}
-                icon={VersionIcon}
-                onClick={revertInHistory}
-            />
-            <TopNavButton
-                className={cx(styles.exit, {[styles.smallScreen]: smallScreenTopNav})}
-                text={TEXT.EXIT}
-                icon={ExitIcon}
-                onClick={() => updateAuth({})}
-            />
-        </div>
-        <div 
-            className={cx(styles.courseLists , {
-                [styles.smallScreen]: smallScreenCourseLists
-            })}
-            data-testid='home-courseLists'
-            ref={courseLists}
-        >
-            <div
-                className={cx(styles.courseList, {
+    return <>
+        <ReactTooltip id='user-guide' place='bottom'>
+            <span>Drag and drop to select and remove courses</span>
+        </ReactTooltip>
+        <div className={cx(styles.wrapper)} data-testid='home-wrapper'>
+            <div className={cx(styles.topNav)} data-testid='home-topnav'>
+                <span 
+                    className={cx(styles.topNavText, {
+                        [styles.smallScreen]: smallScreenTopNav
+                    })}
+                    data-testid='home-topnav-text'
+                >
+                    {`Hello, ${authName}`}
+                </span>
+                <img 
+                    src={QuestionIcon}
+                    className={cx(styles.question)}
+                    data-tip
+                    data-for='user-guide'
+                />
+                <TopNavButton
+                    className={cx(styles.lastVersion)}
+                    text={TEXT.LAST_VERSION}
+                    icon={VersionIcon}
+                    onClick={revertInHistory}
+                />
+                <TopNavButton
+                    className={cx(styles.exit, {[styles.smallScreen]: smallScreenTopNav})}
+                    text={TEXT.EXIT}
+                    icon={ExitIcon}
+                    onClick={() => updateAuth({})}
+                />
+            </div>
+            <div 
+                className={cx(styles.courseLists , {
                     [styles.smallScreen]: smallScreenCourseLists
                 })}
-                style={{ minWidth: smallScreenCourseLists ? `${width - 65}px` : undefined }}
-                ref={leftList}
-                data-testid='left-courseList'
+                data-testid='home-courseLists'
+                ref={courseLists}
             >
-                {Object.entries(courseLevels)
-                    .sort(([a, _], [b, __]) => a.localeCompare(b))
-                    .map(([courseLevel, courses]) => <ExpandableBlock
-                    title={courseLevel}
-                    key={courseLevel}
+                <div
+                    className={cx(styles.courseList, {
+                        [styles.smallScreen]: smallScreenCourseLists
+                    })}
+                    style={{ minWidth: smallScreenCourseLists ? `${width - 65}px` : undefined }}
+                    ref={leftList}
+                    data-testid='left-courseList'
                 >
-                    {courses?.map(course => <Class 
-                        classInfo={course}
-                        key={course.name + course.number}
-                        ref={smallScreenCourseLists ? listShifter : rightList}
+                    {Object.entries(courseLevels)
+                        .sort(([a, _], [b, __]) => a.localeCompare(b))
+                        .map(([courseLevel, courses]) => <ExpandableBlock
+                        title={courseLevel}
+                        key={courseLevel}
+                    >
+                        {courses?.map(course => <Class 
+                            classInfo={course}
+                            key={course.name + course.number}
+                            ref={smallScreenCourseLists ? listShifter : rightList}
+                            updateSavings={updateSavings}
+                            updateHistory={updateHistory}
+                        />)}
+                    </ExpandableBlock>)}
+                </div>
+                {smallScreenCourseLists && <div
+                    className={cx(styles.listShifter)}
+                    ref={listShifter}
+                    data-testid='list-shifter'
+                >
+                    <img 
+                        src={RightArrowIcon} 
+                        style={{transform: arrowDir === 0 ? 'rotate(0deg)' : 'rotate(180deg)'}}
+                        className={cx(styles.arrow)}
+                        onClick={shiftCourseLists}
+                        data-testid='list-shifter-arrow'
+                    />
+                </div>}
+                <div
+                    className={cx(styles.courseList, {
+                        [styles.smallScreen]: smallScreenCourseLists
+                    })}
+                    style={{ minWidth: smallScreenCourseLists ? `${width - 65}px` : undefined }}
+                    ref={rightList}
+                    data-testid='right-courseList'
+                >
+                    {Object.entries(MAJOR_REQUIREMENTS).map(([head, content]) => <MajorRequirement
+                        title={head}
+                        description={content["description"]}
+                        units={content["units"]}
+                        selected={categories[content["simple"]]}
+                        key={head}
                         updateSavings={updateSavings}
                         updateHistory={updateHistory}
+                        ref={smallScreenCourseLists ? listShifter : leftList}
                     />)}
-                </ExpandableBlock>)}
-            </div>
-            {smallScreenCourseLists && <div
-                className={cx(styles.listShifter)}
-                ref={listShifter}
-                data-testid='list-shifter'
-            >
-                <img 
-                    src={RightArrowIcon} 
-                    style={{transform: arrowDir === 0 ? 'rotate(0deg)' : 'rotate(180deg)'}}
-                    className={cx(styles.arrow)}
-                    onClick={shiftCourseLists}
-                    data-testid='list-shifter-arrow'
-                />
-            </div>}
-            <div
-                className={cx(styles.courseList, {
-                    [styles.smallScreen]: smallScreenCourseLists
-                })}
-                style={{ minWidth: smallScreenCourseLists ? `${width - 65}px` : undefined }}
-                ref={rightList}
-                data-testid='right-courseList'
-            >
-                {Object.entries(MAJOR_REQUIREMENTS).map(([head, content]) => <MajorRequirement
-                    title={head}
-                    description={content["description"]}
-                    units={content["units"]}
-                    selected={categories[content["simple"]]}
-                    key={head}
-                    updateSavings={updateSavings}
-                    updateHistory={updateHistory}
-                    ref={smallScreenCourseLists ? listShifter : leftList}
-                />)}
+                </div>
             </div>
         </div>
-    </div>
+    </>
 }
