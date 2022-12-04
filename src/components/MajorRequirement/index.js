@@ -13,13 +13,14 @@ export const MajorRequirement = React.forwardRef((props, ref) => {
         title,
         description,
         units,
-        selected,
+        selected = [],
         updateSavings,
         updateHistory
     } = props;
 
     return <ExpandableBlock
         title={title}
+        fulfilled={selected.length >= units}
     >
         {description && <div className={cx(styles.text)} data-testid='major-requirement-description'>
             <strong>{TEXT.DESCRIPTION}</strong>
@@ -27,7 +28,7 @@ export const MajorRequirement = React.forwardRef((props, ref) => {
         </div>}
         {units && <div className={cx(styles.text)} data-testid='major-requirement-units'>
             <strong>{TEXT.UNITS}</strong>
-            {units}
+            {`${units} required, ${selected.length > units ? units : selected.length} selected`}
         </div>}
         {selected?.map(course => <ClassHeader 
             classInfo={course}

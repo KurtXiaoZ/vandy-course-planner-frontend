@@ -29,12 +29,17 @@
     font-weight: 600;
 }
 
-.arrow {
+.arrowIcon {
     width: 17px;
     height: 17px;
     transform: rotate(180deg);
     margin-left: auto;
     transition: 0.5s linear all;
+}
+
+.fulfilledIcon {
+    margin-right: -8px;
+    margin-left: auto;
 }
 
 .content {
