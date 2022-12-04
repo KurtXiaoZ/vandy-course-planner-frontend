@@ -1,6 +1,7 @@
 import styles from './index.module.css';
 import classNames from 'classnames/bind';
 import RightArrowIcon from '../../assets/icons/rightArrow.svg';
+import FulfilledIcon from '../../assets/icons/statusSelected.svg';
 import PropTypes from 'prop-types';
 import { useState } from 'react';
 const cx = classNames.bind(styles);
@@ -10,6 +11,7 @@ export const ExpandableBlock = (props) => {
     const {
         className,
         title,
+        fulfilled = false,
         children
     } = props;
     const [expand, setExpand] = useState(false);
@@ -30,16 +32,28 @@ export const ExpandableBlock = (props) => {
         className={cx(styles.block, className)}
         data-testid='exandable-block'
     >
-        <div onClick={onClick} className={cx(styles.header, {[styles.expand]: animatedExpand})} data-testid='exandable-block-header'>
+        <div 
+            onClick={onClick}
+            className={cx(styles.header, {
+                [styles.expand]: animatedExpand,
+            })} 
+            data-testid='exandable-block-header'
+        >
             <span className={cx(styles.title)} data-testid='exandable-block-title'>
                 {title}
             </span>
-            <img 
-                src={RightArrowIcon}
-                className={cx(styles.arrow)}
-                style={{transform: `rotate(${animatedExpand ? '90deg' : '180deg'})`}}
+            {fulfilled 
+            ? <img 
+                src={FulfilledIcon}
+                className={cx(styles.fulfilledIcon)}
                 data-testid='exandable-block-icon'
             />
+            : <img 
+                src={RightArrowIcon}
+                className={cx(styles.arrowIcon)}
+                style={{transform: `rotate(${animatedExpand ? '90deg' : '180deg'})`}}
+                data-testid='exandable-block-icon'
+            />}
         </div>
         {expand && <div className={cx(styles.content, {[styles.expand]: animatedExpand})} data-testid='exandable-block-content'>
             {children}
@@ -50,5 +64,6 @@ export const ExpandableBlock = (props) => {
 ExpandableBlock.propTypes = {
     className: PropTypes.string,
     title: PropTypes.string,
-    children: PropTypes.array
+    children: PropTypes.array,
+    fulfilled: PropTypes.bool
 }

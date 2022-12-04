@@ -17,6 +17,7 @@ export const App = () => {
             <Routes>
                 <Route path='/' element={<AuthPage />} />
                 <Route path='/Home' element={<Home />} />
+                <Route path='*' element={<AuthPage />} />
             </Routes>
         </BrowserRouter>
     </AuthProvider>
