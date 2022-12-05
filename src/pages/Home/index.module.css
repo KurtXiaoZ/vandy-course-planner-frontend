@@ -48,8 +48,15 @@
 }
 
 .lastVersion {
+    margin-right: 20px;
+}
+
+.question {
+    width: 30px;
+    height: 30px;
     margin-left: auto;
     margin-right: 20px;
+    cursor: pointer;
 }
 
 .exit {
@@ -96,11 +103,4 @@
     width: 10px;
     cursor: pointer;
     transition: 1s linear all;
-}
-
-.testBlock {
-    height: 100px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
 }
