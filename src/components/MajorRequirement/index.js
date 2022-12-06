@@ -45,7 +45,7 @@ export const MajorRequirement = React.forwardRef((props, ref) => {
 MajorRequirement.propTypes = {
     title: PropTypes.string,
     description: PropTypes.string,
-    units: PropTypes.string,
+    units: PropTypes.number,
     selected: PropTypes.array,
     updateSavings: PropTypes.func
 }

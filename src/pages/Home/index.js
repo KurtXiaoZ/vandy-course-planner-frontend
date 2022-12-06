@@ -93,6 +93,7 @@ export const Home = () => {
                 const { code, obj } = resp
                 if (code === 200) {
                     if (obj === "software" || obj === "hardware" || obj === "foundation") temp.core.push(crs);
+                    else if (obj === "project" && temp.project.length > 0) temp.depth.push(crs);
                     else if (obj !== null && obj !== 'other') temp[obj].push(crs);
                     else temp.other.push(crs);
                 } 
@@ -104,7 +105,13 @@ export const Home = () => {
 
     return <>
         <ReactTooltip id='user-guide' place='bottom'>
-            <span>Drag and drop to select and remove courses</span>
+            <span className={cx(styles.guide)}>
+                Click courses on the left to view course details and professor information.<br/>
+                Drag courses from left to right to select courses.<br/>
+                Drag courses from right to left to remove selected courses.<br/>
+                Click "Last Version" to revert the recent five actions.
+            </span>
+            {/* <span>Drag and drop to select and remove courses</span> */}
         </ReactTooltip>
         <div className={cx(styles.wrapper)} data-testid='home-wrapper'>
             <div className={cx(styles.topNav)} data-testid='home-topnav'>

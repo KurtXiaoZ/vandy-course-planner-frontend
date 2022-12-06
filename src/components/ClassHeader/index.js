@@ -96,7 +96,7 @@ export const ClassHeader = React.forwardRef((props, ref) => {
             }}
             data-testid='class-header-dragging'
         >
-            <span className={cx(styles.code)}>{`${subject} ${number}`}</span>
+            <span className={cx(styles.code)}>{`${subject} ${number % 10000}`}</span>
             <div className={cx(styles.name)}>{name}</div>
             <img className={cx(styles.status)} src={getIcon(status)}/>
         </div>}
@@ -109,7 +109,7 @@ export const ClassHeader = React.forwardRef((props, ref) => {
                 onMouseDown={onDragStart}
                 ref={header}
             >
-                <span className={cx(styles.code)} data-testid='class-header-code'>{`${subject} ${number}`}</span>
+                <span className={cx(styles.code)} data-testid='class-header-code'>{`${subject} ${number % 10000}`}</span>
                 <div className={cx(styles.name)} data-testid='class-header-name'>{name}</div>
                 <img className={cx(styles.status)} src={getIcon(status)} data-testid='class-header-icon'/>
             </div>

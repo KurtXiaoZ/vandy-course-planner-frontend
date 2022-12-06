@@ -68,8 +68,8 @@ export const getCourseLevels = (courses, statuses) => {
     const res = {};
     for (const course of courses) {
         course.status = statuses[[course.subject, course.number].join("")];
-        course.number = course.number % 10000;
-        const { number, subject } = course;
+        const number = course.number % 10000;
+        const { subject } = course;
         let courseLevel = null;
         switch (subject) {
             case "CS":
@@ -92,7 +92,7 @@ export const getCourseLevels = (courses, statuses) => {
     }
     const keys = Object.keys(res);
     for(const key of keys) {
-        res[key].sort((a, b) => a.number - b.number);
+        res[key].sort((a, b) => a.number % 10000 - b.number % 10000);
     }
     return res;
 }
