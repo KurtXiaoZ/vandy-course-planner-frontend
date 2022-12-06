@@ -59,6 +59,11 @@
     cursor: pointer;
 }
 
+.guide {
+    font: 1.1em sans-serif;
+    line-height: 20pt;
+}
+
 .exit {
     margin-right: 30px;
 }
