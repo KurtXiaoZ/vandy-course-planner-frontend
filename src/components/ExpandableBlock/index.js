@@ -1,3 +1,9 @@
+/**
+ * CS4287 Project
+ * Author: Zechuan Xiao
+ * Email: zechuan.xiao@vanderbilt.edu
+ */
+
 import styles from './index.module.css';
 import classNames from 'classnames/bind';
 import RightArrowIcon from '../../assets/icons/rightArrow.svg';
