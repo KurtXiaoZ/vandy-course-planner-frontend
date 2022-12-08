@@ -1,7 +1,10 @@
 /**
  * CS4287 Project
- * Author: Zechuan Xiao
+ * Author: Zechuan Xiao (70%)
  * Email: zechuan.xiao@vanderbilt.edu
+ * 
+ * Author: Toby Zhu (30%)
+ * Email: xiaoliang.zhu@vanderbilt.edu
  */
 
 import styles from './index.module.css';
@@ -117,7 +120,6 @@ export const Home = () => {
                 Drag courses from right to left to remove selected courses.<br/>
                 Click "Last Version" to revert the recent five actions.
             </span>
-            {/* <span>Drag and drop to select and remove courses</span> */}
         </ReactTooltip>
         <div className={cx(styles.wrapper)} data-testid='home-wrapper'>
             <div className={cx(styles.topNav)} data-testid='home-topnav'>
