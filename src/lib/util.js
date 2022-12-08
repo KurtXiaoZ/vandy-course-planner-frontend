@@ -1,3 +1,9 @@
+/**
+ * CS4287 Project
+ * Author: Zechuan Xiao
+ * Email: zechuan.xiao@vanderbilt.edu
+ */
+
 import AbleIcon from '../assets/icons/statusAble.svg';
 import NotAbleIcon from '../assets/icons/statusNotAble.svg';
 import SelectedIcon from '../assets/icons/statusSelected.svg';

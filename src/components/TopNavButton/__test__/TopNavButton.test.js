@@ -1,6 +1,11 @@
+/**
+ * CS4287 Project
+ * Author: Zechuan Xiao
+ * Email: zechuan.xiao@vanderbilt.edu
+ */
+
 import { fireEvent, render } from '@testing-library/react';
 import '@testing-library/jest-dom';
-import { BrowserRouter } from 'react-router-dom';
 import { TopNavButton } from '..';
 import DefaultIcon from './exit.svg';
 import { testStyle } from '../../../lib/util';

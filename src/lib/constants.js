@@ -1,3 +1,9 @@
+/**
+ * CS4287 Project
+ * Author: Zechuan Xiao
+ * Email: zechuan.xiao@vanderbilt.edu
+ */
+
 // screen type
 export const SCREEN = {
     MOBILE: 'MOBILE',

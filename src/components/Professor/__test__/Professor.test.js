@@ -1,4 +1,10 @@
-import { fireEvent, render } from '@testing-library/react';
+/**
+ * CS4287 Project
+ * Author: Zechuan Xiao
+ * Email: zechuan.xiao@vanderbilt.edu
+ */
+
+import { render } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import { Professor } from '..';
 import { COURSE } from '../../../lib/constants';

@@ -1,3 +1,9 @@
+/**
+ * CS4287 Project
+ * Author: Zechuan Xiao
+ * Email: zechuan.xiao@vanderbilt.edu
+ */
+
 import { appendParams } from "./util";
 
 export const getCourses = (inputs = {}) => {

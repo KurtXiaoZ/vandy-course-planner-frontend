@@ -1,3 +1,9 @@
+/**
+ * CS4287 Project
+ * Author: Zechuan Xiao
+ * Email: zechuan.xiao@vanderbilt.edu
+ */
+
 import { createContext, useEffect, useState } from "react";
 
 export const AuthContext = createContext();

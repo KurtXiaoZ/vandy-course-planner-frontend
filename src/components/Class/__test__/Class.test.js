@@ -1,3 +1,9 @@
+/**
+ * CS4287 Project
+ * Author: Zechuan Xiao
+ * Email: zechuan.xiao@vanderbilt.edu
+ */
+
 import { render } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import { Class } from '..';

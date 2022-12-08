@@ -1,3 +1,9 @@
+/**
+ * CS4287 Project
+ * Author: Zechuan Xiao
+ * Email: zechuan.xiao@vanderbilt.edu
+ */
+
 import { useContext, useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom";
 import { SCREEN } from "./constants";

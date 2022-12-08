@@ -1,7 +1,13 @@
+/**
+ * CS4287 Project
+ * Author: Zechuan Xiao
+ * Email: zechuan.xiao@vanderbilt.edu
+ */
+
 import styles from './index.module.css';
 import classNames from 'classnames/bind';
 import React, { useRef, useState } from 'react';
-import { COURSE, COURSE_STATUS } from '../../lib/constants.js';
+import { COURSE } from '../../lib/constants.js';
 import { getIcon } from '../../lib/util';
 import PropTypes from 'prop-types';
 import { deleteSavings } from '../../lib/services';
