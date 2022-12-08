@@ -1,7 +1,10 @@
 /**
  * CS4287 Project
- * Author: Zechuan Xiao
+ * Author: Zechuan Xiao (80%)
  * Email: zechuan.xiao@vanderbilt.edu
+ * 
+ * Author: Toby Zhu (20%)
+ * Email: xiaoliang.zhu@vanderbilt.edu
  */
 
 import AbleIcon from '../assets/icons/statusAble.svg';

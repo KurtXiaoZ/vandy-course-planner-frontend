@@ -1,7 +1,10 @@
 /**
  * CS4287 Project
- * Author: Zechuan Xiao
+ * Author: Zechuan Xiao (60%)
  * Email: zechuan.xiao@vanderbilt.edu
+ * 
+ * Author: Toby Zhu (40%)
+ * Email: xiaoliang.zhu@vanderbilt.edu
  */
 
 import { appendParams } from "./util";
